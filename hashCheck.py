@@ -68,15 +68,19 @@ while True:
    os.system('show stats |grep status|awk \'{print $2}\' > /tmp/hashrate ')
    f=open("/tmp/hashrate", "r")
    hashrate = f.read()
-
-   if (int(float(hashrate.strip())) > 155):
-     #print (hashrate.strip())
-     print("all is well")
+   if (hashrate == "miner"):
+     print("not ready yet wait 5 minutes")
+     sleep(300)
    else:
-     print ("all is not well")
-   send_alert()
-   #ssh into power controller and issue reboot command
-#   connection = ssh(p_ip, p_username, p_password)
-#   connection.sendCommand("echo 0 > /proc/power/relay1 && sleep 20 && echo 1 > /proc/power/relay1")
+     if (int(float(hashrate.strip())) > 155):
+       #print (hashrate.strip())
+       print("all is well")
+     else:
+       print ("all is not well")
+       send_alert()
+       os.system('sudo reboot')
+     #ssh into power controller and issue reboot command
+     #connection = ssh(p_ip, p_username, p_password)
+     #connection.sendCommand("echo 0 > /proc/power/relay1 && sleep 20 && echo 1 > /proc/power/relay1")
    f.close()
    sleep(600)
