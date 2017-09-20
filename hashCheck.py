@@ -6,6 +6,7 @@ from time import sleep
 from paramiko import client
 import os
 
+lowHash = 155
 
 #email variables
 e_username='email username'
@@ -72,7 +73,7 @@ while True:
      print("not ready yet wait 5 minutes")
      sleep(300)
    else:
-     if (int(float(hashrate.strip())) > 155):
+     if (int(float(hashrate.strip())) > int(float(lowHash))):
        #print (hashrate.strip())
        print("all is well")
      else:
